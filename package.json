@@ -1,16 +1,16 @@
 {
-  "name": "@kichiyaki/react-native-barcode-generator",
+  "name": "@cedtech/react-native-barcode-generator",
   "version": "0.6.7",
   "license": "MIT",
   "main": "index.js",
   "typings": "index.d.ts",
-  "author": "Kichiyaki <dawidwysokinski000@gmail.com>",
+  "author": "Ced-X <manamelacedric@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kichiyaki/react-native-barcode-generator"
+    "url": "https://github.com/manamelacedric/react-native-barcode-generator"
   },
   "bugs": {
-    "url": "https://github.com/Kichiyaki/react-native-barcode-generator/issues"
+    "url": "https://github.com/manamelacedric/react-native-barcode-generator/issues"
   },
   "keywords": [
     "react-native",
