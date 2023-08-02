@@ -1,29 +1,64 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import React, { ReactElement, useMemo } from 'react';
+import { View, Text, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import barcodes from 'jsbarcode/src/barcodes';
 
-const Barcode = ({
-  value = '',
+type FormatType =
+  | 'CODE39'
+  | 'CODE128'
+  | 'CODE128A'
+  | 'CODE128B'
+  | 'CODE128C'
+  | 'EAN13'
+  | 'EAN8'
+  | 'EAN5'
+  | 'EAN2'
+  | 'UPC'
+  | 'UPCE'
+  | 'ITF14'
+  | 'ITF'
+  | 'MSI'
+  | 'MSI10'
+  | 'MSI11'
+  | 'MSI1010'
+  | 'MSI1110'
+  | 'pharmacode'
+  | 'codabar'
+  | 'GenericBarcode';
+
+export type BarcodeProps = {
+  value: string;
+  width?: number;
+  maxWidth: number;
+  height?: number;
+  format?: FormatType;
+  lineColor?: string;
+  background?: string;
+  text?: string | ReactElement;
+  containerStyle?: ViewStyle;
+  onError?: (err: Error) => void;
+  getRef?: (ref: any) => void;
+};
+
+export function Barcode({
+  value,
   width = 2,
   height = 100,
   format = 'CODE128',
   lineColor = '#000000',
   background = '#ffffff',
   text,
-  textStyle,
-  style,
+  containerStyle,
   onError,
   getRef,
   maxWidth,
-}) => {
-  const drawRect = (x, y, width, height) => {
+}: BarcodeProps) {
+  const drawRect = (x: number, y: number, width: number, height: number) => {
     return `M${x},${y}h${width}v${height}h-${width}z`;
   };
 
-  const drawSvgBarCode = (encoded) => {
-    const rects = [];
+  const drawSvgBarCode = (encoded: any) => {
+    const rects: string[] = [];
     const { data: binary } = encoded;
 
     const barCodeWidth = binary.length * width;
@@ -62,10 +97,11 @@ const Barcode = ({
     return rects;
   };
 
-  const encode = (text, Encoder) => {
-    if (typeof text !== 'string' || text.length === 0) {
+  const encode = (text: string, Encoder: any) => {
+    if (text.length === 0) {
       throw new Error('Barcode value must be a non-empty string');
     }
+
     const encoder = new Encoder(text, {
       width,
       format,
@@ -74,9 +110,11 @@ const Barcode = ({
       background,
       flat: true,
     });
+
     if (!encoder.valid()) {
       throw new Error('Invalid barcode for selected format.');
     }
+
     return encoder.encode();
   };
 
@@ -99,10 +137,12 @@ const Barcode = ({
       if (__DEV__) {
         console.error(error.message);
       }
+
       if (onError) {
         onError(error);
       }
     }
+
     return {
       bars: [],
       barCodeWidth: 0,
@@ -111,29 +151,19 @@ const Barcode = ({
 
   return (
     <View
-      style={[{ backgroundColor: background, alignItems: 'center' }, style]}
+      style={[
+        { backgroundColor: background, alignItems: 'center' },
+        containerStyle,
+      ]}
     >
       <Svg ref={getRef} height={height} width={barCodeWidth} fill={lineColor}>
         <Path d={bars.join(' ')} />
       </Svg>
-      {text && <Text style={[{ textAlign: 'center' }, textStyle]}>{text}</Text>}
+      {typeof text === 'string' ? (
+        <Text style={{ textAlign: 'center' }}>{text}</Text>
+      ) : (
+        <>{text}</>
+      )}
     </View>
   );
-};
-
-Barcode.propTypes = {
-  value: PropTypes.string.isRequired,
-  format: PropTypes.oneOf(Object.keys(barcodes)),
-  width: PropTypes.number,
-  maxWidth: PropTypes.number,
-  height: PropTypes.number,
-  lineColor: PropTypes.string,
-  background: PropTypes.string,
-  text: PropTypes.node,
-  textStyle: PropTypes.object,
-  style: PropTypes.object,
-  onError: PropTypes.func,
-  getRef: PropTypes.func,
-};
-
-export default Barcode;
+}

@@ -2,8 +2,7 @@
   "name": "@cedtech/react-native-barcode-generator",
   "version": "0.6.7",
   "license": "MIT",
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "main": "index.tsx",
   "author": "Ced-X <manamelacedric@gmail.com>",
   "repository": {
     "type": "git",
@@ -15,18 +14,20 @@
   "keywords": [
     "react-native",
     "generator",
-    "barcode"
+    "barcode",
+    "qrcode"
   ],
   "dependencies": {
-    "jsbarcode": "^3.8.0"
+    "jsbarcode": "^3.8.0",
+    "qrcode": "^1.5.3"
   },
   "peerDependencies": {
     "react-native": ">=0.62.0",
-    "prop-types": ">=15.5.0",
     "react-native-svg": ">=12.1.0"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",
+    "@types/qrcode": "^1.5.1",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.63.45",
     "eslint": "^7.17.0",

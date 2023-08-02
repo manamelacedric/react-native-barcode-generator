@@ -1,6 +1,4 @@
-# @kichiyaki/react-native-barcode-generator
-
-![Screenshot](/images/example.png?raw=true)
+# react-native-barcode-generator
 
 A React-Native component for generating barcodes.
 
@@ -9,13 +7,13 @@ A React-Native component for generating barcodes.
 Using npm:
 
 ```shell
-npm install --save react-native-svg @kichiyaki/react-native-barcode-generator
+npm install --save react-native-svg @cedtech/react-native-barcode-generator
 ```
 
 or using yarn:
 
 ```shell
-yarn add react-native-svg @kichiyaki/react-native-barcode-generator
+yarn add react-native-svg @cedtech/react-native-barcode-generator
 ```
 
 ## Properties
@@ -38,6 +36,7 @@ yarn add react-native-svg @kichiyaki/react-native-barcode-generator
 
 Only flat versions are available for now.
 
+- QRCODE
 - CODE39
 - CODE128
 - CODE128A
