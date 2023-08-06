@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { ViewStyle } from 'react-native'
 import QRC, { QRCodeErrorCorrectionLevel } from 'qrcode';
 import Svg, {
   Defs,
@@ -22,21 +23,22 @@ export type LogoProps = {
 
 export type QRCodeProps = {
   value: string;
-  size: number;
-  color: string;
+  size?: number;
+  color?: string;
   backgroundColor: string;
-  logo: string;
-  logoSize: number;
-  logoBackgroundColor: string;
-  logoMargin: number;
-  logoBorderRadius: number;
-  quietZone: number;
-  enableLinearGradient: boolean;
-  gradientDirection: string[];
+  logo?: string;
+  logoSize?: number;
+  logoBackgroundColor?: string;
+  logoMargin?: number;
+  logoBorderRadius?: number;
+  quietZone?: number;
+  enableLinearGradient?: boolean;
+  gradientDirection?: string[];
   linearGradient: string[];
-  ecl: QRCodeErrorCorrectionLevel;
-  getRef: (ref: any) => void;
-  onError: (error: Error) => void;
+  ecl?: QRCodeErrorCorrectionLevel;
+  getRef?: (ref: any) => void;
+  onError?: (error: Error) => void;
+  contentContainerStyle?: ViewStyle
 };
 
 function genMatrix(
@@ -156,6 +158,7 @@ export function QRCode({
   ecl = 'M',
   getRef,
   onError,
+  contentContainerStyle
 }: QRCodeProps) {
   const result = useMemo(() => {
     try {
@@ -177,7 +180,8 @@ export function QRCode({
   const { path, cellSize } = result;
 
   return (
-    <Svg
+    <View style={[{alightItems:'center'}, contentContainerStyle]}>
+      <Svg
       ref={getRef}
       viewBox={[
         -quietZone,
@@ -226,6 +230,7 @@ export function QRCode({
           logoMargin,
           logoBorderRadius,
         })}
-    </Svg>
+      </Svg>
+    </View>
   );
 }

@@ -1,6 +1,6 @@
 {
   "name": "@cedtech/react-native-barcode-generator",
-  "version": "0.6.7",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "index.tsx",
   "author": "Ced-X <manamelacedric@gmail.com>",
